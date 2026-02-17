@@ -102,7 +102,7 @@ function Set-ValidateOutputFolder
 .DESCRIPTION
     Gets a plain-text access token for Azure Management API.
     Handles both old (string) and new (SecureString) versions of Get-AzAccessToken.
-    In Az.Accounts >= 2.13.0, the .Token property returns a SecureString instead of a plain string.
+    In Az.Accounts >= 5.0.0 (Az >= 14.0.0), the .Token property returns a SecureString instead of a plain string.
 #>
 function Get-AzAccessTokenPlainText
 {
@@ -111,7 +111,7 @@ function Get-AzAccessTokenPlainText
 
     if ($tokenObj.Token -is [System.Security.SecureString])
     {
-        # Az.Accounts >= 2.13.0 returns SecureString
+        # Az.Accounts >= 5.0.0 (Az >= 14.0.0) returns SecureString
         $plainToken = $tokenObj.Token | ConvertFrom-SecureString -AsPlainText
     }
     else
