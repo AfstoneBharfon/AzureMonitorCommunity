@@ -65,7 +65,7 @@ function Get-Greetings
 ####        where we help you step into the world of AMA and DCR      ####
 ####                                                                  ####
 ####                                                                  ####
-####             Azure Monitor Control Plane, August 2024             ####
+####             Azure Monitor Control Plane, February 2026           ####
 ##########################################################################
 
 "@
@@ -823,19 +823,19 @@ function Get-CustomLogs
 
         $filePatterns = @()
 
-        foreach ($input in $customLog.Properties.Inputs)
+        foreach ($inputEntry in $customLog.Properties.Inputs)
         {
-            if($null -ne $input.location.fileSystemLocations.linuxFileTypeLogPaths)
+            if($null -ne $inputEntry.location.fileSystemLocations.linuxFileTypeLogPaths)
             {
-                foreach ($linuxPath in $input.location.fileSystemLocations.linuxFileTypeLogPaths)
+                foreach ($linuxPath in $inputEntry.location.fileSystemLocations.linuxFileTypeLogPaths)
                 {
                     $filePatterns += $linuxPath
                 }
             }
 
-            if($null -ne $input.location.fileSystemLocations.windowsFileTypeLogPaths)
+            if($null -ne $inputEntry.location.fileSystemLocations.windowsFileTypeLogPaths)
             {
-                foreach ($windowsPath in $input.location.fileSystemLocations.windowsFileTypeLogPaths)
+                foreach ($windowsPath in $inputEntry.location.fileSystemLocations.windowsFileTypeLogPaths)
                 {
                     $windowsPathCorrected = $windowsPath.Replace("\\", "\")
                     $filePatterns += $windowsPathCorrected
@@ -889,7 +889,7 @@ function Get-CustomLogs
             $customStreamName = "Custom-Input-$($customLog.Properties.customLogName)"
             $outputStreamName = "Custom-$($customLog.Properties.customLogName)"
             $clArmTemplate.resources[0].properties["streamDeclarations"] = @{ 
-                $customStreamName = [ordered]@{ #Usinfg the default schema - Cx should update this to fit their use case
+                $customStreamName = [ordered]@{ #Using the default schema - Cx should update this to fit their use case
                     "columns" = @(
                         @{
                             "name" = "TimeGenerated";
